@@ -14,7 +14,7 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 
 @CucumberOptions(features={"src//test//java//com//BDD//GoAudits//features"}
-					,glue={"src//test//java//com//BDD//GoAudits//stepdefinations","utility"}
+					,glue={"com.BDD.GoAudits.stepdefinations","com.BDD.GoAudits.utility"}
 					,plugin = {"pretty", "html:target/cucumber"}
 					
 		)
