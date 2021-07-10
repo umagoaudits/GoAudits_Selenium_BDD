@@ -1,4 +1,4 @@
-Feature: Notifications Smoke
+Feature: ActionPlan Smoke
 
 #@smoke @ActionPlan @ActionPlan_004
 #  Scenario: ActionPlan_004_Verify Click on save button without enter a Priority name

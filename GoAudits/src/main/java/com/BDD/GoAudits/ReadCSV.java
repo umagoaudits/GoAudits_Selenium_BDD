@@ -115,6 +115,10 @@ public class ReadCSV {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
 
 		return value;
 

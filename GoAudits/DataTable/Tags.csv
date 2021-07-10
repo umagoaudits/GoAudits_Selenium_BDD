@@ -1,0 +1,9 @@
+TC ID,Show In,Status,Tag Count
+Tags_006_Verify creation of Tag Category with selection for Location,Location,,
+Tags_007_Verify creation of Tag Category with selection for User,User,,
+Tags_009_Verify updation of Tag Category with selection for Location,Location,,
+Tags_010_Verify updation of Tag Category with selection for User,User,,
+Tags_015_Verify deletion of Tag Category with selection for Location,Location,,
+Tags_016_Verify deletion of Tag Category with selection for User,User,,
+Tags_0012_Verify creation of Tag Category with selection for Location,Location,inactive,
+Tags_026_Verify creation of multiple Tags for a Tag Category,,,2
