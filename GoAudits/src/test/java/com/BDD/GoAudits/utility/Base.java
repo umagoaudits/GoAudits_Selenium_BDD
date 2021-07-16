@@ -162,19 +162,24 @@ public class Base {
 
 	}
 	public static final String message_xpath="//div[@aria-live='assertive']";
+	public static final String message1_xpath="//div[@aria-live='assertive']/span";
 	public static void verifyMessage(String message) throws Exception {
 		seleniumUtils.waitforVisibilityOfElement(Locator.XPATH, message_xpath);
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		String msg= seleniumUtils.GetText(Locator.XPATH, message_xpath);
 		System.out.println(msg);
 		if(msg.trim().equalsIgnoreCase(message.trim())) {
 			LogFileControl.logPass(DriverManager.getDriver().getTitle(), "Popup Message is displaying properly as \""+msg+"\"");
 		}else {
+			msg= seleniumUtils.GetText(Locator.XPATH, message1_xpath);
+			if(msg.trim().equalsIgnoreCase(message.trim())) {
+				LogFileControl.logPass(DriverManager.getDriver().getTitle(), "Popup Message is displaying properly as \""+msg+"\"");
+			}else {
 			LogFileControl.logFail(DriverManager.getDriver().getTitle(), "Popup Message is not displaying properly");
 		}
 	}
 
-	
+	}
 	
 	
 	

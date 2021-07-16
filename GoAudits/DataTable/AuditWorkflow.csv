@@ -1,0 +1,8 @@
+TC ID,Tab Name,Audit Multiple,Location Multiple,Assignee Multiple
+AuditWorkflow_007_Verify creation of Audit Workflow with multiple checklists one location and one Assignee for Audit,,yes,,
+AuditWorkflow_017_Verify validation messages in Create Audit Workflow page for Action Plan,action plan,,,
+AuditWorkflow_019_Verify creation of Audit Workflow for Action Plan,action plan,,,
+AuditWorkflow_020_Verify creation of Audit Workflow with multiple checklists one location and one Assignee for Action Plan,action plan,yes,,
+AuditWorkflow_022_Verify creation of Audit Workflow with multiple checklists multiple locations and with multiple Assignee for Action Plan,action plan,yes,yes,yes
+AuditWorkflow_025_Verify updation of Audit Workflow for Action Plan tab,action plan,,,
+AuditWorkflow_028_Verify deletion of Audit Workflow for Action Plan,action plan,,,

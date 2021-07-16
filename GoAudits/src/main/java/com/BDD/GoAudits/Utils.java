@@ -298,4 +298,6 @@ public interface Utils {
 	void waitforElementToBeSelected(Locator locatorType,String locatorValue);
 
 	void waitforInvisibilityOfElement(Locator locatorType,String locatorValue);
+	
+	
 }

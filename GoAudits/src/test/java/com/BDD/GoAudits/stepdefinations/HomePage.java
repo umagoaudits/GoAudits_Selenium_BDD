@@ -25,15 +25,17 @@ public class HomePage extends Base{
 			Thread.sleep(2000);
 		}
 		String module1, module2 = arg1;
+	    seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+	    Thread.sleep(5000);
 		if(arg1.contains("-")) {
 			 module1 =  arg1.split("-")[0];
 			 module2 = arg1.split("-")[1];
-			seleniumUtils.waitforElementToBeClickable(Locator.XPATH, "//span[contains(text(),'"+module1+"')]");
-		    seleniumUtils.Click(Locator.XPATH, "//span[contains(text(),'"+module1+"')]", "Home", module1);
+			seleniumUtils.waitforElementToBeClickable(Locator.XPATH, "//span[contains(@title,'"+module1+"')]");
+		    seleniumUtils.Click(Locator.XPATH, "//span[contains(@title,'"+module1+"')]", "Home", module1);
 		    seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
 		}
-			 seleniumUtils.waitforElementToBeClickable(Locator.XPATH, "//a[contains(text(),'"+module2+"')]");
-			    seleniumUtils.Click(Locator.XPATH, "//a[contains(text(),'"+module2+"')]", "Home", module2);
+			 seleniumUtils.waitforElementToBeClickable(Locator.XPATH, "//a[contains(@title,'"+module2+"')]");
+			    seleniumUtils.Click(Locator.XPATH, "//a[contains(@title,'"+module2+"')]", "Home", module2);
 			    seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
 		
 	   
