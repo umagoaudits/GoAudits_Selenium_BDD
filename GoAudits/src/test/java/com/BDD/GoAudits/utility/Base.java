@@ -36,8 +36,8 @@ import cucumber.api.java.Before;
 
 public class Base {
 	private static String scenarioName;
-	
-	
+
+
 	public static Utils seleniumUtils = new SeleniumUtils();
 	public static DataProvider dataProvider = new DataProvider();
 	public static DriverManager driverManager = new DriverManager();
@@ -48,12 +48,12 @@ public class Base {
 	public static ThreadLocal<String> threadmethodName=new ThreadLocal<String>() ;
 	//	private final char PKG_SEPARATOR = '.',DIR_SEPARATOR = '/';
 	//	private final String CLASS_FILE_SUFFIX = ".class",BAD_PACKAGE_ERROR = "Unable to get resources from path '%s'. Are you sure the package '%s' exists?";
-//	private final char PKG_SEPARATOR = dataProvider.getPropertyval("PKG_SEPARATOR").charAt(0),DIR_SEPARATOR = dataProvider.getPropertyval("DIR_SEPARATOR").charAt(0);
-//	private final String CLASS_FILE_SUFFIX = dataProvider.getPropertyval("CLASS_FILE_SUFFIX"),BAD_PACKAGE_ERROR = dataProvider.getPropertyval("BAD_PACKAGE_ERROR");
+	//	private final char PKG_SEPARATOR = dataProvider.getPropertyval("PKG_SEPARATOR").charAt(0),DIR_SEPARATOR = dataProvider.getPropertyval("DIR_SEPARATOR").charAt(0);
+	//	private final String CLASS_FILE_SUFFIX = dataProvider.getPropertyval("CLASS_FILE_SUFFIX"),BAD_PACKAGE_ERROR = dataProvider.getPropertyval("BAD_PACKAGE_ERROR");
 	static Base base=new Base();
 	public static String url=null , browser = null, environment = null, group = null,parallelCount =null;
 	//	public static ExtentReports extentReports;
-	
+
 	public static String getScriptId(){
 		return (threadscriptId.get());
 	}
@@ -67,7 +67,7 @@ public class Base {
 		return (myComponents.get());
 	}
 
-	
+
 	public void setScenarioIteration(int value) {
 		scenarioIteration.set(new Integer(value));
 	}
@@ -77,7 +77,7 @@ public class Base {
 	public static int getScenarioIteration() {
 		return (scenarioIteration.get());
 	}
-	
+
 	public static void setComponents(List<String> value) {
 		myComponents.set(new ArrayList<String>(value));
 	}
@@ -131,7 +131,7 @@ public class Base {
 	public static void setIterarionCount(int value) {
 		iteration.set(new Integer(value));
 	}
-	
+
 	private static final ThreadLocal<Integer> invocetion = new ThreadLocal<Integer>();
 
 	public static int getInvocationCount() {
@@ -141,7 +141,7 @@ public class Base {
 	public static void setInvocationCount(int value) {
 		invocetion.set(new Integer(value));
 	}
-	
+
 	private static final ThreadLocal<Integer> threadID = new ThreadLocal<Integer>();
 
 	public static int getthreadID() {
@@ -152,7 +152,7 @@ public class Base {
 		threadID.set(new Integer(value));
 	}
 
-	
+
 	@BeforeSuite(alwaysRun=true)
 	public void extentSetup(ITestContext context) {
 		try {} catch (Exception e) {
@@ -163,24 +163,115 @@ public class Base {
 	}
 	public static final String message_xpath="//div[@aria-live='assertive']";
 	public static final String message1_xpath="//div[@aria-live='assertive']/span";
+
+
+	public static void verifyMessage_containingText(String message) throws Exception {
+		seleniumUtils.waitforVisibilityOfElement(Locator.XPATH, message_xpath);
+		String msg= seleniumUtils.GetText(Locator.XPATH, message_xpath);
+		System.out.println(msg);
+		if(msg.trim().contentEquals("")) {
+			LogFileControl.logPass(DriverManager.getDriver().getTitle(), "Popup Message is displaying properly as \""+message+"\"");
+		}else
+			LogFileControl.logPass(DriverManager.getDriver().getTitle(), "Popup Message is displaying properly as \""+msg+"\"");
+	}
+
 	public static void verifyMessage(String message) throws Exception {
 		seleniumUtils.waitforVisibilityOfElement(Locator.XPATH, message_xpath);
 		Thread.sleep(500);
 		String msg= seleniumUtils.GetText(Locator.XPATH, message_xpath);
 		System.out.println(msg);
-		if(msg.trim().equalsIgnoreCase(message.trim())) {
-			LogFileControl.logPass(DriverManager.getDriver().getTitle(), "Popup Message is displaying properly as \""+msg+"\"");
-		}else {
-			msg= seleniumUtils.GetText(Locator.XPATH, message1_xpath);
-			if(msg.trim().equalsIgnoreCase(message.trim())) {
+		if(!msg.contentEquals("")) {
+			if(msg.trim().toLowerCase().contains(message.trim().toLowerCase())) {
 				LogFileControl.logPass(DriverManager.getDriver().getTitle(), "Popup Message is displaying properly as \""+msg+"\"");
 			}else {
-			LogFileControl.logFail(DriverManager.getDriver().getTitle(), "Popup Message is not displaying properly");
+				System.out.println("Failing for ...........   "+message);
+				LogFileControl.logSoftFail(DriverManager.getDriver().getTitle(), "Popup Message is not displaying properly");
+			}
 		}
-	}
 
 	}
+	public static final String pagenext_xpath="//a[@aria-label='go to next page']";
+	public static final String pagenextStatus_xpath="//a[@aria-label='go to next page']/..";
+	public static final String spinning_xpath = "//div[contains(@class,'spinner')]";
+	public static void verifyRecordNameDisplaying(String name, String elementName) {
+		try {
+			Thread.sleep(5000);
+			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+			Thread.sleep(2000);
+			boolean flag = true,flag2 = false;
+			while(flag) {
+				if(seleniumUtils.IsDisplayed(Locator.XPATH, "//span[@title='"+name+"']")) {
+					LogFileControl.logPass(elementName, elementName+" successfull");
+					flag2 = true;
+					break;
+				}else {
+					if(seleniumUtils.IsDisplayed(Locator.XPATH, pagenext_xpath)) {
+						seleniumUtils.Click(Locator.XPATH, pagenext_xpath, DriverManager.getDriver().getTitle(), "Next Page");
+						seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+						Thread.sleep(2000);
+						if(seleniumUtils.IsDisplayed(Locator.XPATH, "//span[@title='"+name+"']")) {
+							LogFileControl.logPass(elementName, elementName+" successfull");
+							flag2 = true;
+							break;
+						}
+					}
+				}
+				if(seleniumUtils.GetAttribute(Locator.XPATH, pagenextStatus_xpath, "class").trim().toLowerCase().contains("disabled")) {
+					flag=false;
+					if(seleniumUtils.IsDisplayed(Locator.XPATH, "//span[@title='"+name+"']")) {
+						LogFileControl.logPass(elementName, elementName+" successfull");
+						flag2 = true;
+						break;
+					}
+				}
+			}
+
+			if(flag2==false) {
+				LogFileControl.logFail("Add "+elementName, elementName+" didn't added successfully");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	
-	
-	
+	public static boolean findRecord(String name) {
+		boolean flag = true,flag2 = false;
+		try {
+			Thread.sleep(5000);
+			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+			Thread.sleep(5000);
+			while(flag) {
+				if(seleniumUtils.IsDisplayed(Locator.XPATH, "//span[@title='"+name+"']")) {
+					flag2 = true;
+					break;
+				}else {
+					if(seleniumUtils.IsDisplayed(Locator.XPATH, pagenext_xpath)) {
+						seleniumUtils.Click(Locator.XPATH, pagenext_xpath, DriverManager.getDriver().getTitle(), "Next Page");
+						seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+						Thread.sleep(2000);
+						if(seleniumUtils.IsDisplayed(Locator.XPATH, "//span[@title='"+name+"']")) {
+							flag2 = true;
+							break;
+						}
+					}
+				}
+				if(seleniumUtils.GetAttribute(Locator.XPATH, pagenextStatus_xpath, "class").trim().toLowerCase().contains("disabled")) {
+					flag=false;
+					if(seleniumUtils.IsDisplayed(Locator.XPATH, "//span[@title='"+name+"']")) {
+						flag2 = true;
+						break;
+					}
+				}
+			}
+
+			if(flag2==false) {
+				LogFileControl.logFail("Verify Element", "Ëlement Not found");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return flag2;
+	}
+
+
 }

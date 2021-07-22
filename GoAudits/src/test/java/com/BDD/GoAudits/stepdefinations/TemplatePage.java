@@ -23,6 +23,9 @@ public class TemplatePage extends Base{
 
 	@Then("^I add pre-defined template$")
 	public static void i_add_pre_defined_template() throws Exception {
+		Thread.sleep(5000);
+		seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+		Thread.sleep(2000);
 		seleniumUtils.waitforElementToBeClickable(Locator.XPATH, "//div[text()='Create New']");
 		Thread.sleep(3000);
 		seleniumUtils.Click(Locator.XPATH, "//div[text()='Create New']", "Template", "Create New");
@@ -55,7 +58,7 @@ public class TemplatePage extends Base{
 		if(seleniumUtils.IsDisplayed(Locator.XPATH, "//span[contains(text(),'This template name is already in use')]")) {
 			LogFileControl.logPass("Verify Error Message", "Error Message is displaying correctly");
 		}else {
-			HomePage.i_navigated_to_menu("");
+			HomePage.i_navigated_to_menu("Forms/Checklists");
 			i_add_pre_defined_template();
 			if(seleniumUtils.IsDisplayed(Locator.XPATH, "//span[contains(text(),'This template name is already in use')]")) {
 				LogFileControl.logPass("Verify Error Message", "Error Message is displaying correctly");
@@ -67,7 +70,7 @@ public class TemplatePage extends Base{
 
 	@Then("^I verify pre-defined template added successfully$")
 	public void i_verify_pre_defined_template_added_successfully() throws Exception {
-		HomePage.i_navigated_to_menu("");
+		HomePage.i_navigated_to_menu("Forms/Checklists");
 		seleniumUtils.waitforElementToBeClickable(Locator.XPATH, "//div[text()='Create New']");
 		Thread.sleep(3000);
 		String cname= dataProvider.getPropertyvalue("DataStore", "Template Name");
@@ -81,12 +84,12 @@ public class TemplatePage extends Base{
 	public void i_add_multiple_Template() throws Exception {
 		addTemplate(0);
 		Thread.sleep(3000);
-		HomePage.i_navigated_to_menu("");
+		HomePage.i_navigated_to_menu("Forms/Checklists");
 		seleniumUtils.waitforElementToBeClickable(Locator.XPATH, "//div[text()='Create New']");
 		Thread.sleep(3000);
 		addTemplate(1);
 		Thread.sleep(3000);
-		HomePage.i_navigated_to_menu("");
+		HomePage.i_navigated_to_menu("Forms/Checklists");
 		seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, "//div[contains(@class,'spinner')]");
 		seleniumUtils.waitforElementToBeClickable(Locator.XPATH, "//div[text()='Create New']");
 		Thread.sleep(3000);
@@ -149,12 +152,15 @@ public class TemplatePage extends Base{
 	@Then("^I add action assignee and verify message$")
 	public static void i_add_actionAssinee() throws Exception {
 		Thread.sleep(5000);
+		seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+		Thread.sleep(2000);
 		if(seleniumUtils.IsDisplayed(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]")) {
 			seleniumUtils.Click(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]", "Template", "More OpTion");
 			Thread.sleep(1000);
 			seleniumUtils.Click(Locator.XPATH, "//span[text()='Edit']", "Template", "Edit");
 			Thread.sleep(5000);
 		}
+		seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
 		seleniumUtils.waitforElementToBeClickable(Locator.XPATH, "//a[contains(text(),'Manage Action Plan Assignees')]");
 		if(seleniumUtils.IsDisplayed(Locator.XPATH, "//span[text()='Add Assignee']")) {
 
@@ -169,6 +175,7 @@ public class TemplatePage extends Base{
 			// TODO: handle exception
 		}
 		createAssignee();
+		Thread.sleep(5000);
 		int newS = seleniumUtils.Size(Locator.XPATH, "//i[contains(@class,'ellipsis')]");
 		if(newS==(s+1)) {
 			LogFileControl.logPass("Add Multiple Assignee", "Added successfully");
@@ -183,11 +190,16 @@ public class TemplatePage extends Base{
 		}else {
 			LogFileControl.logFail("Add Assignee", "Successful message is not displaying properly");
 		}
+//		seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+		
+		
 	}
 
 	@Then("^I delete action assignee and verify message$")
 	public static void i_delete_actionAssinee() throws Exception {
 		Thread.sleep(5000);
+		seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+		Thread.sleep(2000);
 		if(seleniumUtils.IsDisplayed(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]")) {
 			seleniumUtils.Click(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]", "Template", "More OpTion");
 			Thread.sleep(1000);
@@ -227,15 +239,19 @@ public class TemplatePage extends Base{
 	@Then("^I delete template and verify message$")
 	public static void i_delete_template() throws Exception {
 		Thread.sleep(5000);
-
+		seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+		Thread.sleep(2000);
 		int s=0;
 		try {
-			s= seleniumUtils.Size(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]");
+			s= seleniumUtils.Size(Locator.XPATH, "(//mat-icon[text()='more_vert'])");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		deleteTemplate();
-		int newS = seleniumUtils.Size(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]");
+		Thread.sleep(5000);
+		seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+		Thread.sleep(2000);
+		int newS = seleniumUtils.Size(Locator.XPATH, "(//mat-icon[text()='more_vert'])");
 		if(newS==(s-1)) {
 			LogFileControl.logPass("Delete Template", "Deleted successfully");
 		}else {
@@ -288,6 +304,8 @@ public class TemplatePage extends Base{
 	@Then("^I add multiple action assignee and verify message$")
 	public static void i_add_multiple_actionAssinee() throws Exception {
 		Thread.sleep(5000);
+		seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+		Thread.sleep(2000);
 		if(seleniumUtils.IsDisplayed(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]")) {
 			seleniumUtils.Click(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]", "Template", "More OpTion");
 			Thread.sleep(1000);
@@ -372,6 +390,10 @@ public class TemplatePage extends Base{
 
 	public static void renameTemplateName(String tName) {
 		try {
+			Thread.sleep(5000);
+			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+			Thread.sleep(2000);
+			if(findRecord(tName)) {
 			seleniumUtils.Click(Locator.XPATH, "(//span[text()='"+tName+"']//following::mat-icon[text()='more_vert'])[1]", "Template", "More OpTion");
 			Thread.sleep(1000);
 			seleniumUtils.Click(Locator.XPATH, "//span[text()='Edit']", "Template", "Edit");
@@ -387,6 +409,7 @@ public class TemplatePage extends Base{
 			}else {
 				LogFileControl.logFail("Renamea	 Template", "Successful message is not displaying properly");
 			}
+		}
 			Thread.sleep(5000);
 			seleniumUtils.waitforElementToBeClickable(Locator.XPATH, "//div[text()='Create New']");
 		} catch (Exception e) {
@@ -398,6 +421,8 @@ public class TemplatePage extends Base{
 	public static void renameFirstTemplate(String newName) {
 		try {
 			Thread.sleep(5000);
+			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+			Thread.sleep(2000);
 			if(seleniumUtils.IsDisplayed(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]")) {
 				seleniumUtils.Click(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]", "Template", "More OpTion");
 				Thread.sleep(1000);
@@ -419,6 +444,8 @@ public class TemplatePage extends Base{
 	public static void AddSignatureFirstTemplate() {
 		try {
 			Thread.sleep(5000);
+			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+			Thread.sleep(2000);
 			if(seleniumUtils.IsDisplayed(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]")) {
 				seleniumUtils.Click(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]", "Template", "More OpTion");
 				Thread.sleep(1000);
@@ -454,6 +481,8 @@ public class TemplatePage extends Base{
 	public static void deleteSign() {
 		try {
 			Thread.sleep(5000);
+			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+			Thread.sleep(2000);
 			if(seleniumUtils.IsDisplayed(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]")) {
 				seleniumUtils.Click(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]", "Template", "More OpTion");
 				Thread.sleep(1000);
@@ -481,6 +510,8 @@ public class TemplatePage extends Base{
 	public static void createAssignee() {
 		try {
 			Thread.sleep(5000);
+			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+			Thread.sleep(2000);
 			if(seleniumUtils.IsDisplayed(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]")) {
 				seleniumUtils.Click(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]", "Template", "More OpTion");
 				Thread.sleep(1000);
@@ -510,6 +541,8 @@ public class TemplatePage extends Base{
 	public static void editAssignee() {
 		try {
 			Thread.sleep(5000);
+			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+			Thread.sleep(2000);
 			if(seleniumUtils.IsDisplayed(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]")) {
 				seleniumUtils.Click(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]", "Template", "More OpTion");
 				Thread.sleep(1000);
@@ -545,6 +578,9 @@ public class TemplatePage extends Base{
 	public static void deleteAssignee() {
 		try {
 			Thread.sleep(5000);
+			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+			Thread.sleep(2000);
+			Thread.sleep(5000);
 			if(seleniumUtils.IsDisplayed(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]")) {
 				seleniumUtils.Click(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]", "Template", "More OpTion");
 				Thread.sleep(1000);
@@ -557,7 +593,9 @@ public class TemplatePage extends Base{
 
 			}else {
 				seleniumUtils.Click(Locator.XPATH, "//a[contains(text(),'Manage Action Plan Assignees')]", "Template - Assignee", "Manage Action Plan Assignees");
-				Thread.sleep(4000);
+				Thread.sleep(5000);
+				seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+				Thread.sleep(2000);
 			}
 			if(seleniumUtils.IsDisplayed(Locator.XPATH, "//i[contains(@class,'ellipsis')]")) {
 
@@ -576,6 +614,9 @@ public class TemplatePage extends Base{
 
 	public static void deleteTemplate() {
 		try {
+			Thread.sleep(5000);
+			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+			Thread.sleep(2000);
 			seleniumUtils.waitforElementToBeClickable(Locator.XPATH, "//div[text()='Create New']");
 			Thread.sleep(3000);
 			if(seleniumUtils.IsDisplayed(Locator.XPATH, "(//mat-icon[text()='more_vert'])[1]")) {
@@ -600,6 +641,9 @@ public class TemplatePage extends Base{
 
 	public static void restoreDeletedTemplate() {
 		try {
+			Thread.sleep(5000);
+			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+			Thread.sleep(2000);
 			seleniumUtils.waitforElementToBeClickable(Locator.XPATH, "//div[text()='Create New']");
 			Thread.sleep(3000);
 			seleniumUtils.Click(Locator.XPATH, "//div[text()='Deleted/Archived']", "Template", "Deleted/Archived tab");

@@ -8,6 +8,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import com.BDD.GoAudits.Locators.Locator;
 import com.relevantcodes.extentreports.LogStatus;
@@ -70,7 +71,7 @@ public class LogFileControl
 	public static void logError(String strMsg)
 	{
 		log.error( strMsg);
-		ExtentTestManager.getlogger().log(LogStatus.ERROR, strMsg);
+		ExtentTestManager.getlogger().log(LogStatus.INFO, strMsg);
 	}
 
 	public static void logPass(String stepName, String strMsg)
@@ -110,6 +111,39 @@ public class LogFileControl
 		//		}catch(Exception e){}
 	}
 
+	public static void logSoftFail(String stepName, String msg)
+	{
+		String strMsg =  stepName+ " "+msg ;
+		Boolean blnConsoleError = StringUtils.containsIgnoreCase(strMsg, "Console");
+
+		intErrorCount = intErrorCount + 1;
+		strErrorCollect = strErrorCollect + strMsg + " \n";
+		SoftAssert asser = new SoftAssert();
+		if (blnConsoleError.equals(true))
+		{
+			log.info(strMsg + " ~ Termination Stop ");
+			log.info("Termination Console Error detected : " + strMsg);
+
+			log.error("Error FOUND: \n" + strMsg);
+			ExtentTestManager.getlogger().log(LogStatus.FAIL, stepName, strMsg);
+			asser.assertAll(strMsg);
+		}
+		else
+		{	
+			ExtentTestManager.getlogger().log(LogStatus.FAIL, stepName, strMsg);
+			log.info(strMsg + " ~ Run Stop ");
+			log.error("Error FOUND: \n" + strMsg);
+
+			
+			asser.assertAll(strMsg);
+		}
+
+		//		try{
+		//			DataAddress.driver.quit();
+		//		}catch(Exception e){}
+	}
+
+	
 	public static void logFailwithScreenCapture(String stepName, String msg) throws IOException
 	{
 		String strMsg =  stepName+ " "+msg ;

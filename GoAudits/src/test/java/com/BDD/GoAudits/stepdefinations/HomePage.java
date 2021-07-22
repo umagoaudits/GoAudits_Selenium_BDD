@@ -30,8 +30,8 @@ public class HomePage extends Base{
 		if(arg1.contains("-")) {
 			 module1 =  arg1.split("-")[0];
 			 module2 = arg1.split("-")[1];
-			seleniumUtils.waitforElementToBeClickable(Locator.XPATH, "//span[contains(@title,'"+module1+"')]");
-		    seleniumUtils.Click(Locator.XPATH, "//span[contains(@title,'"+module1+"')]", "Home", module1);
+			seleniumUtils.waitforElementToBeClickable(Locator.XPATH, "//*[contains(@title,'"+module1+"')]");
+		    seleniumUtils.Click(Locator.XPATH, "//*[contains(@title,'"+module1+"')]", "Home", module1);
 		    seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
 		}
 			 seleniumUtils.waitforElementToBeClickable(Locator.XPATH, "//a[contains(@title,'"+module2+"')]");

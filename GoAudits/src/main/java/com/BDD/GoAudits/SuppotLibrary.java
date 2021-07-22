@@ -31,8 +31,11 @@ public class SuppotLibrary {
 	public static String reportFolder=suppotLibrary.getReportFolder();
 	
 	public static void main(String args[]) {
-		System.out.println(getDayCount("July 16, 2021", "August 30, 2022",7,"Jul"));
-//		System.out.println(changeDateFormat("July 16, 2021"));
+		if("Please wait while the audit report is downloading ...".trim().toLowerCase().contains("Please wait while the audit report is downloading".trim().toLowerCase())) {
+			System.out.println("Pass");
+		}else {
+			System.out.println("Failing for ...........   ");
+		}
 	}
 
 	public String timestamp(){

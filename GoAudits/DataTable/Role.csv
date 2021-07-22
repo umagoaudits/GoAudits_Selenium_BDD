@@ -1,0 +1,9 @@
+TC ID,Role Type,Permissions,Role Name
+Role_009_Verify user can able to create admin role with valid data,Admin,App&Portal&Analytics,
+Role_010_Verify user can able to create Auditor role with valid data,Auditor,App&Analytics,
+Role_014_Verify user can able to delete role which is already assigned to user,,,user-role-test
+Role_028_Verify Creating a admin role without Portal permission,Admin,App&Analytics,
+Role_017_Verify User can able to edit to change the assigned permissions for a role,,App&Portal&Analytics,
+Role_029_Verify creating a auditor role without App permission,Auditor,Portal&Analytics,
+Role_030_Verify creating a admin role with Analytics permission only,Admin,Analytics,
+Role_031_Verify creating a auditor  role with custom permissions having Portal access and selective checklist,Auditor,Portal&User-role-test,

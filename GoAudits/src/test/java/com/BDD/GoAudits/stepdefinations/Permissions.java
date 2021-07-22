@@ -32,7 +32,7 @@ public class Permissions extends Base{
 	public static final String delete_xpath="//span[contains(text(),'Delete/Archive')]";
 	public static final String restore_xpath="//span[text()='Restore']";
 	public static final String total_xpath ="//div[contains(text(),'total')]";
-
+	
 
 
 	@Then("^I add permissions with out mandatory fields and verify error message$")
@@ -93,16 +93,13 @@ public class Permissions extends Base{
 
 			seleniumUtils.Click(Locator.XPATH, save_xpath, "Permissions", "Save");
 			verifyMessage("The permission name has been successfully created");
-
-			if(seleniumUtils.IsDisplayed(Locator.XPATH, "//span[@title='"+name+"']")) {
-				LogFileControl.logPass("Add Permissions", "Permissions added successfully");
-			}else {
-				LogFileControl.logFail("Add Permissions", "Permissions didn't added successfully");
-			}
+			verifyRecordNameDisplaying(name,"Permissions");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
+
+	
 	@Then("^I edit permissions List data and verify$")
 	public static void editpermission_PermissionListData() {
 		editpermission("Data");
@@ -128,11 +125,7 @@ public class Permissions extends Base{
 			seleniumUtils.Click(Locator.XPATH, save_xpath, "Permissions", "Save");
 			verifyMessage("Saved successfully");
 
-			if(seleniumUtils.IsDisplayed(Locator.XPATH, "//span[@title='"+name+"']")) {
-				LogFileControl.logPass("Add Permissions", "Permissions added successfully");
-			}else {
-				LogFileControl.logFail("Add Permissions", "Permissions didn't added successfully");
-			}
+			verifyRecordNameDisplaying(name,"Permissions");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -141,7 +134,7 @@ public class Permissions extends Base{
 	public static void editpermission_PermissionListFeature() {
 		editpermission("Feature");
 	}
-	
+
 	@Then("^I add permissions Group and verify$")
 	public static void addpermission_PermissionGroup() {
 		try {
@@ -162,21 +155,17 @@ public class Permissions extends Base{
 			seleniumUtils.Click(Locator.XPATH, save_xpath, "Permissions", "Save");
 			verifyMessage("The permission group has been successfully created");
 
-			if(seleniumUtils.IsDisplayed(Locator.XPATH, "//span[@title='"+name+"']")) {
-				LogFileControl.logPass("Add Permissions", "Permissions added successfully");
-			}else {
-				LogFileControl.logFail("Add Permissions", "Permissions didn't added successfully");
-			}
+			verifyRecordNameDisplaying(name,"Permissions");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
-	
+
 	@Then("^I edit permissions Group and verify$")
 	public static void editpermission_PermissionGroup() {
 		editpermission("Group");
 	}
-	
+
 	public static void editpermission(String permissionType) {
 		try {
 			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
@@ -210,11 +199,7 @@ public class Permissions extends Base{
 			seleniumUtils.Click(Locator.XPATH, save_xpath, "Permissions", "Save");
 			verifyMessage("The permission has been successfully updated");
 
-			if(seleniumUtils.IsDisplayed(Locator.XPATH, "//span[@title='"+name+"']")) {
-				LogFileControl.logPass("Edit Permissions", "Permissions edited successfully");
-			}else {
-				LogFileControl.logFail("Edit Permissions", "Permissions didn't edited successfully");
-			}
+			verifyRecordNameDisplaying(name,"Permissions");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -257,7 +242,6 @@ public class Permissions extends Base{
 
 	
 
-	
 
 
 

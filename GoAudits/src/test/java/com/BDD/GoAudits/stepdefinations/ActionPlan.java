@@ -81,7 +81,7 @@ public class ActionPlan extends Base{
 			String name = "Priority "+suppotLibrary.getCurrentTime();
 			for(int i=1;i<=actionPlanCount;i++) {
 			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
-			Thread.sleep(3000);
+			Thread.sleep(8000);
 			if(seleniumUtils.IsDisplayed(Locator.XPATH, expand_xpath))
 				writeConfig.storeData("Action Plan Count", seleniumUtils.GetText(Locator.XPATH, total_xpath).trim().split(" ")[0]);
 			else
@@ -106,11 +106,7 @@ public class ActionPlan extends Base{
 			seleniumUtils.Click(Locator.XPATH, "//div[@class='dropdown-menu show']/a["+i+"]", "Action Plan", "Company Name");
 			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
 			Thread.sleep(3000);
-			if(seleniumUtils.IsDisplayed(Locator.XPATH, "//span[contains(text(),'"+name+"')]")) {
-				LogFileControl.logPass("Verify added Priority", "Priority added and displaying under Action Plan Settings List");
-			}else {
-				LogFileControl.logFail("Verify added Priority", "Priority not added and not displaying under Action Plan Settings List");
-			}
+			verifyRecordNameDisplaying(name,"Action Plan");
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

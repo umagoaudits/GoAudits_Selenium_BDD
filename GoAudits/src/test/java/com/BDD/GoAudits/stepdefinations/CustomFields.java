@@ -29,12 +29,13 @@ public class CustomFields extends Base{
 	public static final String companydefault_xpath="//span[contains(text(),'Company:')]";
 
 
-	
-	
+
+
 
 	@Then("^I add custom fields without filling mandatory fields and verify error message$")
 	public static void addcustomFieldswithoutmandateFieldandVerify() {
 		try {
+			Thread.sleep(5000);
 			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
 			Thread.sleep(3000);
 			if(seleniumUtils.IsDisplayed(Locator.XPATH, add_xpath))
@@ -76,6 +77,7 @@ public class CustomFields extends Base{
 
 	public static void addCustomField() {
 		try {
+			Thread.sleep(5000);
 			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
 			Thread.sleep(3000);
 			seleniumUtils.Click(Locator.XPATH, companydefault_xpath, "Action Plan", "Company");
@@ -135,6 +137,7 @@ public class CustomFields extends Base{
 	@Then("^I delete custom fields and verify message$")
 	public static void deleteCustomField() {
 		try {
+			Thread.sleep(5000);
 			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
 			Thread.sleep(3000);
 			String fieldName = dataProvider.getPropertyvalue("DataStore","Added Custom Field");
@@ -167,31 +170,33 @@ public class CustomFields extends Base{
 
 	@Then("^I restore custom fields and verify message$")
 	public static void restoreCustomField() {
-		try {seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
-		Thread.sleep(3000);
-		String fieldName = dataProvider.getPropertyvalue("DataStore","Deleted Custom Field");
-		if(fieldName!=null && !fieldName.trim().equals("")) {
+		try {
+			Thread.sleep(5000);
+			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+			Thread.sleep(3000);
+			String fieldName = dataProvider.getPropertyvalue("DataStore","Deleted Custom Field");
+			if(fieldName!=null && !fieldName.trim().equals("")) {
 
-		}
-		else {
-			deleteCustomField();
-			fieldName = dataProvider.getPropertyvalue("DataStore","Deleted Custom Field");
-		}
-		seleniumUtils.Click(Locator.XPATH, "//span[@title='"+fieldName+"']/following::mat-icon[text()='more_vert'][1]", "Custom Fields", "Expand");
-		Thread.sleep(500);
-		seleniumUtils.Click(Locator.XPATH, restore_xpath, "Custom Fields", "Restore");
-		verifyMessage("The customfield has been successfully restored");
-		seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
-		Thread.sleep(2000);
-		seleniumUtils.Click(Locator.XPATH, "//span[@title='"+fieldName+"']/following::mat-icon[text()='more_vert'][1]", "Custom Fields", "Expand");
-		Thread.sleep(500);
-		if(seleniumUtils.IsDisplayed(Locator.XPATH, delete_xpath)) {
-			LogFileControl.logPass("Verify restored Custom Fields", "Custom field restored successfully");
-		}else {
-			LogFileControl.logPass("Verify restored Custom Fields", "Custom field didnt restored successfully");
-		}
-		writeConfig.storeData("Deleted Custom Field", "");
-		writeConfig.storeData("Added Custom Field", fieldName);
+			}
+			else {
+				deleteCustomField();
+				fieldName = dataProvider.getPropertyvalue("DataStore","Deleted Custom Field");
+			}
+			seleniumUtils.Click(Locator.XPATH, "//span[@title='"+fieldName+"']/following::mat-icon[text()='more_vert'][1]", "Custom Fields", "Expand");
+			Thread.sleep(500);
+			seleniumUtils.Click(Locator.XPATH, restore_xpath, "Custom Fields", "Restore");
+			verifyMessage("The customfield has been successfully restored");
+			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
+			Thread.sleep(2000);
+			seleniumUtils.Click(Locator.XPATH, "//span[@title='"+fieldName+"']/following::mat-icon[text()='more_vert'][1]", "Custom Fields", "Expand");
+			Thread.sleep(500);
+			if(seleniumUtils.IsDisplayed(Locator.XPATH, delete_xpath)) {
+				LogFileControl.logPass("Verify restored Custom Fields", "Custom field restored successfully");
+			}else {
+				LogFileControl.logPass("Verify restored Custom Fields", "Custom field didnt restored successfully");
+			}
+			writeConfig.storeData("Deleted Custom Field", "");
+			writeConfig.storeData("Added Custom Field", fieldName);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -201,7 +206,7 @@ public class CustomFields extends Base{
 	@Then("^I edit custom fields and verify message$")
 	public static void editCustomField() {
 		try {
-
+			Thread.sleep(5000);
 			seleniumUtils.waitforInvisibilityOfElement(Locator.XPATH, spinning_xpath);
 			Thread.sleep(3000);
 			String fieldName = dataProvider.getPropertyvalue("DataStore","Added Custom Field");
@@ -220,7 +225,7 @@ public class CustomFields extends Base{
 			Thread.sleep(200);
 			seleniumUtils.Click(Locator.XPATH, save_xpath, "Custom Fields", "Save");
 			verifyMessage("The custom field has been successfully updated");
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
