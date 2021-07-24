@@ -1,3 +1,0 @@
-TC ID,Role Name,Permission Company,Permission  Checklists,Permission  Locations,Edited Role Name
-Users_019_Verify user can able to pick up a role via custom role dropdown,user-role-test,New Company,Sanitation,Test,
-Users_031_Verify updation of assigned roles and tags,,New Company,Sanitation,Test,user-role-test
